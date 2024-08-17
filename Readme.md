@@ -39,15 +39,14 @@ This project is a user management web application. The application consists of t
     ```
 
 2. Navigate to the project directory:
-
     ```bash
     cd user-management
     ```
-    
-Install the dependencies:
-bash
-Copy code
-npm install
+
+3. Install the dependencies:
+    ```bash 
+    npm install
+    ```
 Start the development server:
 bash
 Copy code
