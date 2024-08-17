@@ -135,7 +135,7 @@ Pagination.propTypes = {
     state: PropTypes.shape({
       pageIndex: PropTypes.number,
     }),
-  }).isRequired,
+  }),
 };
 
 export default Pagination;

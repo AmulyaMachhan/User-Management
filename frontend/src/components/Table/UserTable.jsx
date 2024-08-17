@@ -317,7 +317,7 @@ const UserTable = ({ data, columns, roles, teams }) => {
           onClose={() =>
             setModals((prev) => ({ ...prev, isDeleteModalOpen: false }))
           }
-          onConfirm={handleConfirmDelete}
+          onDelete={handleConfirmDelete}
         />
       )}
       {modals.isFilterModalOpen && (
