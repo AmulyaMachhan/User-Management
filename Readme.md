@@ -1,6 +1,6 @@
 # User Management
 
-This project is a user management web application built as part of a Fullstack Development Internship. The application consists of two main pages: a Dashboard page and a People Directory page.
+This project is a user management web application. The application consists of two main pages: a Dashboard page and a People Directory page.
 
 ## Features
 
@@ -37,3 +37,24 @@ This project is a user management web application built as part of a Fullstack D
    ```bash
    git clone https://github.com/your-username/user-management.git
     ```
+
+## Usage
+
+- Visit the Dashboard page upon opening the web app.
+- Navigate to the People Directory to view, edit, add, and delete user entries.
+
+## Screenshots
+
+_Screenshots of the application can be added here._
+
+## Contributing
+
+If you wish to contribute, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any inquiries or feedback, feel free to contact me at [your-email@example.com](mailto:your-email@example.com).
