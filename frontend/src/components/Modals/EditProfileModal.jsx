@@ -36,6 +36,10 @@ const EditProfileModal = ({ user, onClose }) => {
   });
 
   const [selectedTeams, setSelectedTeams] = useState([]);
+  const [profileImage, setProfileImage] = useState(
+    user?.profileImage ||
+      "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+  );
 
   useEffect(() => {
     if (user) {
@@ -47,6 +51,7 @@ const EditProfileModal = ({ user, onClose }) => {
         teams: user.teams || [],
       });
       setSelectedTeams(user.teams || []);
+      setProfileImage(user.profileImage || profileImage);
     }
   }, [user, reset]);
 
@@ -56,11 +61,28 @@ const EditProfileModal = ({ user, onClose }) => {
 
   const onSubmit = (data) => {
     if (isAddMode) {
-      dispatch(addUser(data));
+      dispatch(addUser({ ...data, profileImage }));
     } else {
-      dispatch(editUser({ id: user.id, ...data }));
+      dispatch(editUser({ id: user.id, ...data, profileImage }));
     }
     onClose();
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDeletePhoto = () => {
+    setProfileImage(
+      "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+    );
   };
 
   const roleOptions = [
@@ -101,18 +123,28 @@ const EditProfileModal = ({ user, onClose }) => {
 
         <div className="mb-4 flex flex-col items-center">
           <img
-            src={
-              user?.profileImage ||
-              "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-            }
+            src={profileImage}
             alt={user?.name || "User"}
             className="w-[80px] h-[80px] rounded-full mb-4"
           />
           <div className="flex space-x-2">
-            <button className="flex items-center gap-2 bg-[#F8FAFC] text-[#06103C] font-[700] tracking-wide px-3 py-1.5 rounded-lg">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+              id="profileImageUpload"
+            />
+            <label
+              htmlFor="profileImageUpload"
+              className="flex items-center gap-2 bg-[#F8FAFC] text-[#06103C] font-[700] tracking-wide px-3 py-1.5 rounded-lg cursor-pointer"
+            >
               CHANGE PHOTO
-            </button>
-            <button className="flex items-center gap-2 bg-[#F8FAFC] text-[#06103C] font-[700] tracking-wide px-3 py-1.5 rounded-lg">
+            </label>
+            <button
+              onClick={handleDeletePhoto}
+              className="flex items-center gap-2 bg-[#F8FAFC] text-[#06103C] font-[700] tracking-wide px-3 py-1.5 rounded-lg"
+            >
               DELETE PHOTO
             </button>
           </div>
