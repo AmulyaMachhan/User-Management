@@ -2,6 +2,10 @@
 
 This project is a user management web application. The application consists of two main pages: a Dashboard page and a People Directory page.
 
+## Screenshots
+
+![localhost_5173_people-directory](https://github.com/user-attachments/assets/baf6b768-7ada-4005-8477-46080727cdfb)
+
 ## Features
 
 ### 1. Dashboard Page
@@ -57,11 +61,7 @@ This project is a user management web application. The application consists of t
 
 - Visit the Dashboard page upon opening the web app.
 - Navigate to the People Directory to view, edit, add, and delete user entries.
-
-## Screenshots
-
-_Screenshots of the application can be added here._
-
+- 
 ## Contributing
 
 If you wish to contribute, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
