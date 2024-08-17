@@ -38,6 +38,20 @@ This project is a user management web application. The application consists of t
    git clone https://github.com/your-username/user-management.git
     ```
 
+2. Navigate to the project directory:
+
+    ```bash
+    cd user-management
+    ```
+    
+Install the dependencies:
+bash
+Copy code
+npm install
+Start the development server:
+bash
+Copy code
+npm run dev
 ## Usage
 
 - Visit the Dashboard page upon opening the web app.
