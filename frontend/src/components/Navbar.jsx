@@ -3,22 +3,22 @@ import { IoGrid } from "react-icons/io5";
 
 function Navbar() {
   return (
-    <aside className="w-[240px] flex flex-col">
-      <nav className="flex flex-col mt-8 space-y-4">
+    <aside className="w-[200px] flex flex-col">
+      <nav className="flex flex-col mt-6 space-y-3 text-sm">
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `flex items-center gap-2 px-4 py-3 text-gray-600 hover:text-[#6941C6] hover:bg-gray-200 ${
+            `flex items-center gap-2 px-5 py-2 text-gray-600 hover:text-[#6941C6] hover:bg-gray-200 ${
               isActive ? "text-[#6941C6]" : ""
             }`
           }
         >
           {/* Icon */}
           <div
-            className={`flex items-center justify-center h-[24px] w-[24px]
+            className={`flex items-center justify-center h-[20px] w-[20px]
           bg-black`}
           >
-            <IoGrid size={18} color="white" />
+            <IoGrid size={16} color="white" />
           </div>
           Overview
         </NavLink>
@@ -26,17 +26,17 @@ function Navbar() {
         <NavLink
           to="/people-directory"
           className={({ isActive }) =>
-            `flex gap-[8px] items-center px-4 py-3 text-gray-600 hover:text-[#6941C6] hover:bg-gray-200 ${
+            `flex gap-2 items-center px-5 py-2 text-gray-600 hover:text-[#6941C6] hover:bg-gray-200 ${
               isActive ? "text-[#6941C6]" : ""
             }`
           }
         >
           {/* Icon */}
           <div
-            className={`flex items-center justify-center h-[24px] w-[24px]
+            className={`flex items-center justify-center h-[20px] w-[20px]
           bg-black`}
           >
-            <IoGrid size={18} color="white" />
+            <IoGrid size={16} color="white" />
           </div>
           People Directory
         </NavLink>

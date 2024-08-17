@@ -39,38 +39,37 @@ const FilterModal = ({ roles, teams, onApply, onClose }) => {
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-96">
-        <h2 className="text-xl font-semibold mb-4">Filter by</h2>
+        <h2 className="text-xl font-semibold mb-4">Filter</h2>
         <div className="mb-4">
           <div>
-            <label className="block">
+            <label className="mb-2 flex items-center">
               <input
-                type="radio"
-                value="role"
+                type="checkbox"
                 checked={selectedOption === "role"}
-                onChange={(e) => setSelectedOption(e.target.value)}
+                onChange={() => {
+                  setSelectedOption("role");
+                  setIsRolesDropdownOpen(true);
+                  setIsTeamsDropdownOpen(false);
+                }}
+                className="mr-2 accent-[#6941C6] w-4 h-4"
               />
               Role
             </label>
             {selectedOption === "role" && (
-              <button
-                type="button"
-                onClick={() => setIsRolesDropdownOpen(!isRolesDropdownOpen)}
-                className="block w-full mt-2 text-left bg-gray-100 p-2 rounded"
+              <div
+                className={`mt-2 ${
+                  isRolesDropdownOpen ? "block" : "hidden"
+                } px-6 rounded`}
               >
-                {selectedRoles.length > 0
-                  ? `Selected Roles: ${selectedRoles.join(", ")}`
-                  : "Select Roles"}
-              </button>
-            )}
-            {selectedOption === "role" && isRolesDropdownOpen && (
-              <div className="mt-2 bg-gray-100 p-2 rounded">
                 {roles.map((role) => (
                   <div key={role} className="flex items-center mb-1">
                     <input
                       type="checkbox"
                       checked={selectedRoles.includes(role)}
                       onChange={() => handleRoleChange(role)}
-                      className="mr-2"
+                      className={`mr-2 accent-[#6941C6] w-4 h-4 ${
+                        selectedRoles.includes(role) ? "bg-[#6941C6]" : ""
+                      }`}
                     />
                     <label>{role}</label>
                   </div>
@@ -79,35 +78,34 @@ const FilterModal = ({ roles, teams, onApply, onClose }) => {
             )}
           </div>
           <div>
-            <label className="block">
+            <label className="mb-2 flex items-center">
               <input
-                type="radio"
-                value="team"
+                type="checkbox"
                 checked={selectedOption === "team"}
-                onChange={(e) => setSelectedOption(e.target.value)}
+                onChange={() => {
+                  setSelectedOption("team");
+                  setIsTeamsDropdownOpen(true);
+                  setIsRolesDropdownOpen(false);
+                }}
+                className="mr-2 accent-[#6941C6] w-4 h-4"
               />
               Team
             </label>
             {selectedOption === "team" && (
-              <button
-                type="button"
-                onClick={() => setIsTeamsDropdownOpen(!isTeamsDropdownOpen)}
-                className="block w-full mt-2 text-left bg-gray-100 p-2 rounded"
+              <div
+                className={`mt-2 ${
+                  isTeamsDropdownOpen ? "block" : "hidden"
+                } px-6 rounded`}
               >
-                {selectedTeams.length > 0
-                  ? `Selected Teams: ${selectedTeams.join(", ")}`
-                  : "Select Teams"}
-              </button>
-            )}
-            {selectedOption === "team" && isTeamsDropdownOpen && (
-              <div className="mt-2 bg-gray-100 p-2 rounded">
                 {teams.map((team) => (
                   <div key={team} className="flex items-center mb-1">
                     <input
                       type="checkbox"
                       checked={selectedTeams.includes(team)}
                       onChange={() => handleTeamChange(team)}
-                      className="mr-2"
+                      className={`mr-2 accent-[#6941C6] w-4 h-4 ${
+                        selectedTeams.includes(team) ? "bg-[#6941C6]" : ""
+                      }`}
                     />
                     <label>{team}</label>
                   </div>
@@ -132,7 +130,7 @@ const FilterModal = ({ roles, teams, onApply, onClose }) => {
             </button>
             <button
               onClick={handleApply}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+              className="px-4 py-2 bg-[#6941C6] text-white rounded-lg"
             >
               Apply
             </button>
