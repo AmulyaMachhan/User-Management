@@ -47,10 +47,12 @@ This project is a user management web application. The application consists of t
     ```bash 
     npm install
     ```
-Start the development server:
-bash
-Copy code
-npm run dev
+
+4. Start the development server:
+    ```bash
+    npm run dev
+    ```
+    
 ## Usage
 
 - Visit the Dashboard page upon opening the web app.
