@@ -17,24 +17,11 @@ const PeopleDirectory = () => {
   // Define columns including the checkbox column
   const columns = useMemo(
     () => [
-      ...(isSidePaneOpen
-        ? [
-            columnHelper.accessor("checkbox", {
-              id: "checkbox",
-              header: () => <input type="checkbox" className="" />,
-              cell: ({ row }) => (
-                <input type="checkbox" checked={row.getIsSelected()} />
-              ),
-              className: `transition-all duration-300 ease-in-out ${
-                isSidePaneOpen ? "hidden" : "block"
-              }`,
-            }),
-          ]
-        : []),
       columnHelper.accessor("name", {
         id: "name",
         header: () => (
           <div className="flex gap-4 items-center">
+            {isSidePaneOpen && <input type="checkbox" className="" />}
             <span>Name</span>
             <DownArrowIcon />
           </div>
@@ -42,9 +29,16 @@ const PeopleDirectory = () => {
         cell: ({
           row: {
             original: { profileImage, name, username },
+            getIsSelected,
           },
         }) => (
-          <Name profileImage={profileImage} name={name} username={username} />
+          <Name
+            profileImage={profileImage}
+            name={name}
+            username={username}
+            getIsSelected={getIsSelected}
+            isSidePaneOpen={isSidePaneOpen}
+          />
         ),
       }),
       columnHelper.accessor("status", {
@@ -103,7 +97,6 @@ const PeopleDirectory = () => {
     <UserTable
       data={data}
       columns={columns}
-      overlapFromColumn="status"
       onSidePaneToggle={setIsSidePaneOpen}
     />
   );

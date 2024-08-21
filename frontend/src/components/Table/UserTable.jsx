@@ -13,7 +13,7 @@ import { EditProfileModal, DeleteModal, FilterModal } from "../Modals";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 
-const UserTable = ({ data, columns, overlapFromColumn, onSidePaneToggle }) => {
+const UserTable = ({ data, columns, onSidePaneToggle }) => {
   const [filtering, setFiltering] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [modals, setModals] = useState({
@@ -26,8 +26,6 @@ const UserTable = ({ data, columns, overlapFromColumn, onSidePaneToggle }) => {
 
   const sidePaneRef = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const overlapIndex = columns.findIndex((col) => col.id === overlapFromColumn);
 
   useEffect(() => {
     const query = searchParams.get("query") || "";
@@ -128,7 +126,6 @@ const UserTable = ({ data, columns, overlapFromColumn, onSidePaneToggle }) => {
             handleRowClick={handleRowClick}
             setModals={setModals}
             setSelectedUser={setSelectedUser}
-            overlapIndex={overlapIndex}
           />
           <Pagination table={table} />
         </div>
@@ -191,7 +188,6 @@ const UserTable = ({ data, columns, overlapFromColumn, onSidePaneToggle }) => {
 UserTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  overlapFromColumn: PropTypes.string.isRequired,
   onSidePaneToggle: PropTypes.func.isRequired,
 };
 
