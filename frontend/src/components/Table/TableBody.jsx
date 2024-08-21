@@ -8,7 +8,6 @@ const TableBody = ({
   handleRowClick,
   setModals,
   setSelectedUser,
-  overlapIndex,
 }) => {
   const handleEdit = (user) => {
     setSelectedUser(user);
@@ -25,14 +24,10 @@ const TableBody = ({
       <thead className="text-[#475467] font-[500]">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header, index) => (
+            {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
-                className={
-                  index > overlapIndex
-                    ? "relative z-0 py-3 px-3 text-left text-sm border-b"
-                    : "py-3 px-3 text-left text-sm border-b"
-                }
+                className="py-3 px-3 text-left text-xs border-b font-[500]"
               >
                 {flexRender(
                   header.column.columnDef.header,
@@ -50,15 +45,8 @@ const TableBody = ({
             onClick={() => handleRowClick(row.original)}
             className="table-row cursor-pointer hover:bg-gray-100"
           >
-            {row.getVisibleCells().map((cell, index) => (
-              <td
-                key={cell.id}
-                className={
-                  index > overlapIndex
-                    ? "py-3 px-4 border-b relative z-0"
-                    : "py-3 px-4 border-b"
-                }
-              >
+            {row.getVisibleCells().map((cell) => (
+              <td key={cell.id} className="py-3 px-4 border-b">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
