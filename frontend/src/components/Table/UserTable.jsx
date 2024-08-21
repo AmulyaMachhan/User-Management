@@ -6,6 +6,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import Pagination from "./Pagination";
 import SidePane from "./SidePane";
@@ -23,6 +24,7 @@ const UserTable = ({ data, columns, onSidePaneToggle }) => {
   });
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(true);
   const [filteredData, setFilteredData] = useState(data);
+  const [sorting, setSorting] = useState([]);
 
   const sidePaneRef = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,7 +65,9 @@ const UserTable = ({ data, columns, onSidePaneToggle }) => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    state: { globalFilter: filtering },
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+    state: { globalFilter: filtering, sorting },
   });
 
   const rows = table.getRowModel().rows;
