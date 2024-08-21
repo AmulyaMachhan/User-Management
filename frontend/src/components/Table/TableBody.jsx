@@ -28,6 +28,7 @@ const TableBody = ({
               <th
                 key={header.id}
                 className="py-3 px-3 text-left text-xs border-b font-[500]"
+                onClick={header.column.getToggleSortingHandler()}
               >
                 {flexRender(
                   header.column.columnDef.header,
