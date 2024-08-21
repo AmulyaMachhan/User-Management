@@ -5,7 +5,7 @@ import UserTable from "./Table/UserTable";
 import Name from "./Columns/Name";
 import Status from "./Columns/Status";
 import Teams from "./Columns/Teams";
-import { DownArrowIcon, QuestionIcon } from "./Icons";
+import { DownArrowIcon, DownIcon, QuestionIcon, UpIcon } from "./Icons";
 
 const PeopleDirectory = () => {
   const users = useSelector((state) => state.user.users);
@@ -19,11 +19,23 @@ const PeopleDirectory = () => {
     () => [
       columnHelper.accessor("name", {
         id: "name",
-        header: () => (
-          <div className="flex gap-4 items-center">
+        header: ({ column }) => (
+          <div
+            className="flex gap-4 items-center cursor-pointer"
+            onClick={column.getToggleSortingHandler()}
+          >
             {isSidePaneOpen && <input type="checkbox" className="" />}
             <span>Name</span>
-            <DownArrowIcon />
+            <div className="flex flex-col gap-1">
+              {isSidePaneOpen ? (
+                <>
+                  <UpIcon />
+                  <DownIcon />
+                </>
+              ) : (
+                <DownArrowIcon />
+              )}
+            </div>
           </div>
         ),
         cell: ({
@@ -40,6 +52,8 @@ const PeopleDirectory = () => {
             isSidePaneOpen={isSidePaneOpen}
           />
         ),
+        sortingFn: "alphanumeric",
+        enableSorting: true,
       }),
       columnHelper.accessor("status", {
         id: "status",
