@@ -35,6 +35,6 @@ const Teams = ({ teams }) => {
 };
 
 Teams.propTypes = {
-  teams: PropTypes.object.isRequired,
+  teams: PropTypes.array.isRequired,
 };
 export default Teams;
