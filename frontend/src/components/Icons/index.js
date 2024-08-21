@@ -12,3 +12,5 @@ export { default as LinkIcon } from "./LinkIcon";
 export { default as RightArrowIcon } from "./RightArrowIcon";
 export { default as LeftArrowIcon } from "./LeftArrowIcon";
 export { default as DownArrowIcon } from "./DownArrowIcon";
+export { default as DownIcon } from "./DownIcon";
+export { default as UpIcon } from "./UpIcon";
