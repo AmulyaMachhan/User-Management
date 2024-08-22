@@ -24,7 +24,12 @@ const PeopleDirectory = () => {
             className="flex gap-4 items-center cursor-pointer"
             onClick={column.getToggleSortingHandler()}
           >
-            {isSidePaneOpen && <input type="checkbox" className="" />}
+            {isSidePaneOpen && (
+              <input
+                type="checkbox"
+                className="appearance-none h-4 w-4 ml-1 border-[1px] border-[#D0D5DD] rounded-[0.3rem]"
+              />
+            )}
             <span>Name</span>
             <div className="flex flex-col gap-1">
               {isSidePaneOpen ? (
