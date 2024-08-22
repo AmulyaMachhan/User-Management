@@ -162,16 +162,11 @@ const UserTable = ({ data, columns, onSidePaneToggle }) => {
       {modals.isDeleteModalOpen && (
         <DeleteModal
           user={selectedUser}
-          onClose={() =>
-            setModals((prev) => ({ ...prev, isDeleteModalOpen: false }))
-          }
-          onDelete={() => {
-            setFilteredData(
-              filteredData.filter((u) => u.id !== selectedUser.id)
-            );
-            setSelectedUser(null);
-            setModals((prev) => ({ ...prev, isDeleteModalOpen: false }));
-          }}
+          setFilteredData={setFilteredData}
+          setModals={setModals}
+          filteredData={filteredData}
+          setSelectedUser={setSelectedUser}
+          setIsSidePaneOpen={setIsSidePaneOpen}
         />
       )}
       {modals.isFilterModalOpen && (
