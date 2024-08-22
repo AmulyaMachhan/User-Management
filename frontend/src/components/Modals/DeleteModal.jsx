@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../redux/userSlice";
 import { CloseIcon } from "../Icons";
@@ -16,7 +16,7 @@ const DeleteModal = ({
 
   const handleConfirmDelete = () => {
     dispatch(deleteUser(user.id));
-    setFilteredData(filteredData.filter((user) => user.id !== user.id));
+    setFilteredData(filteredData.filter((u) => u.id !== user.id));
     setModals((prev) => ({ ...prev, isDeleteModalOpen: false }));
     setSelectedUser(null);
     setIsSidePaneOpen(false);
@@ -52,11 +52,6 @@ const DeleteModal = ({
       </div>
     </div>
   );
-};
-
-DeleteModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default DeleteModal;
