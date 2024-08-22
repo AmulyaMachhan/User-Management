@@ -12,7 +12,7 @@ const Name = ({
       <input
         type="checkbox"
         checked={getIsSelected()}
-        className="border border-[#D0D5DD]"
+        className="appearance-none h-4 w-4 border-[1px] border-[#D0D5DD] rounded-[0.3rem]"
       />
     )}
     <img src={profileImage} alt={name} className="w-8 h-8 rounded-full" />
