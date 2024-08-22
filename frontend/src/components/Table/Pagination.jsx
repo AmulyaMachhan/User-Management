@@ -36,7 +36,7 @@ const Pagination = ({ table }) => {
       <button
         onClick={() => previousPage()}
         disabled={!getCanPreviousPage()}
-        className="flex items-center gap-2 px-4 py-2 font-[600] border-[1px] border-[#D0D5DD] text-[#344054] rounded"
+        className="flex items-center gap-2 px-3 py-2 text-xs font-[600] border-[1px] border-[#D0D5DD] text-[#344054] rounded"
       >
         <LeftArrowIcon />
         <span>Previous</span>
@@ -85,9 +85,9 @@ const Pagination = ({ table }) => {
       <button
         onClick={() => nextPage()}
         disabled={!getCanNextPage()}
-        className="flex items-center gap-2 px-4 py-2 font-[600] border-[1px] border-[#D0D5DD] text-[#344054] rounded"
+        className="flex items-center gap-2 px-3 py-2 text-xs font-[600] border-[1px] border-[#D0D5DD] text-[#344054] rounded"
       >
-        Next Page
+        Next
         <RightArrowIcon />
       </button>
     </div>
