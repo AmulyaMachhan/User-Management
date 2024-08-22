@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function GridIcon({ color }) {
+function GridIcon({ color = "black" }) {
   return (
     <svg
       width="24"
@@ -40,7 +40,4 @@ GridIcon.propTypes = {
   color: PropTypes.string.isRequired,
 };
 
-GridIcon.defaultProps = {
-  color: "black",
-};
 export default GridIcon;
