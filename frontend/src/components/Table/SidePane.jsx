@@ -116,10 +116,6 @@ SidePane.propTypes = {
     nationality: PropTypes.string.isRequired,
     contactNo: PropTypes.string.isRequired,
     workEmailAddress: PropTypes.string.isRequired,
-    researchTopic: PropTypes.string.isRequired,
-    publishedIn: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-    summary: PropTypes.string.isRequired,
   }),
   onClose: PropTypes.func.isRequired,
 };
