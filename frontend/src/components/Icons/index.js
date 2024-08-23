@@ -5,3 +5,6 @@ export { default as EditIcon } from "./EditIcon";
 export { default as AddIcon } from "./AddIcon";
 export { default as CloseIcon } from "./CloseIcon";
 export { default as BellIcon } from "./BellIcon";
+export { default as GridIcon } from "./GridIcon";
+export { default as RightArrowIcon } from "./RightArrowIcon";
+export { default as LeftArrowIcon } from "./LeftArrowIcon";
