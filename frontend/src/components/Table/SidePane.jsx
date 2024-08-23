@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
-import { IoClose } from "react-icons/io5";
+import { CloseIcon } from "../Icons/index";
 import { DateTime } from "luxon";
 
 const SidePane = forwardRef(({ user, onClose }, ref) => {
@@ -36,7 +36,7 @@ const SidePane = forwardRef(({ user, onClose }, ref) => {
           </div>
         </div>
         <button onClick={onClose} className="text-white hover:text-gray-300">
-          <IoClose size={20} />
+          <CloseIcon />
         </button>
       </div>
       <div className="p-3">
