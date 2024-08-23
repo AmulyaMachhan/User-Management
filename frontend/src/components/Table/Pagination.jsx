@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { LeftArrowIcon, RightArrowIcon } from "../Icons";
 
 const Pagination = ({ table }) => {
   const {
@@ -37,21 +38,7 @@ const Pagination = ({ table }) => {
         disabled={!getCanPreviousPage()}
         className="flex items-center gap-2 px-4 py-2 font-[600] border-[1px] border-[#D0D5DD] text-[#344054] rounded"
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12.8334 6.99996H1.16675M1.16675 6.99996L7.00008 12.8333M1.16675 6.99996L7.00008 1.16663"
-            stroke="#344054"
-            strokeWidth="1.66667"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <LeftArrowIcon />
         <span>Previous</span>
       </button>
       <div className="flex items-center">
@@ -100,22 +87,8 @@ const Pagination = ({ table }) => {
         disabled={!getCanNextPage()}
         className="flex items-center gap-2 px-4 py-2 font-[600] border-[1px] border-[#D0D5DD] text-[#344054] rounded"
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1.16663 6.99996H12.8333M12.8333 6.99996L6.99996 1.16663M12.8333 6.99996L6.99996 12.8333"
-            stroke="#344054"
-            strokeWidth="1.66667"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
         Next Page
+        <RightArrowIcon />
       </button>
     </div>
   );
