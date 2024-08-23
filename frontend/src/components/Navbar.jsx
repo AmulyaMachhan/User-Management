@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { IoGrid } from "react-icons/io5";
+import { GridIcon } from "./Icons/index";
 
 function Navbar() {
   return (
@@ -14,11 +14,8 @@ function Navbar() {
           }
         >
           {/* Icon */}
-          <div
-            className={`flex items-center justify-center h-[20px] w-[20px]
-          bg-black`}
-          >
-            <IoGrid size={16} color="white" />
+          <div>
+            <GridIcon />
           </div>
           Overview
         </NavLink>
@@ -32,11 +29,8 @@ function Navbar() {
           }
         >
           {/* Icon */}
-          <div
-            className={`flex items-center justify-center h-[20px] w-[20px]
-          bg-black`}
-          >
-            <IoGrid size={16} color="white" />
+          <div>
+            <GridIcon />
           </div>
           People Directory
         </NavLink>
