@@ -17,6 +17,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../redux/userSlice";
 import { useSearchParams } from "react-router-dom";
+import FilterIcon from "../Icons/FilterIcon";
 
 const UserTable = ({ data, columns, roles, teams }) => {
   const [filtering, setFiltering] = useState("");
@@ -170,20 +171,7 @@ const UserTable = ({ data, columns, roles, teams }) => {
             }
             className="p-2 rounded-full hover:bg-gray-200"
           >
-            <svg
-              width="22"
-              height="20"
-              viewBox="0 0 22 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 1H1L9 10.46V17L13 19V10.46L21 1Z"
-                stroke="#0F172A"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <FilterIcon />
           </button>
           <button
             onClick={handleAddMember}
@@ -338,7 +326,7 @@ UserTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   roles: PropTypes.array.isRequired,
-  teams: PropTypes.array.isRequired,
+  teams: PropTypes.object.isRequired,
 };
 
 export default UserTable;
