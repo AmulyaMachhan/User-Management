@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 const FilterModal = ({ roles, teams, onApply, onClose }) => {
-  const [selectedOption, setSelectedOption] = useState("role");
+  const [selectedOption, setSelectedOption] = useState(null);
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [selectedTeams, setSelectedTeams] = useState([]);
   const [isRolesDropdownOpen, setIsRolesDropdownOpen] = useState(false);
@@ -24,6 +24,17 @@ const FilterModal = ({ roles, teams, onApply, onClose }) => {
     onClose();
   };
 
+  const handleSelectRoles = () => {
+    if (selectedRoles.length === roles.length) {
+      setSelectedRoles([]);
+      setIsRolesDropdownOpen(false);
+    } else {
+      setSelectedRoles(roles);
+      setIsRolesDropdownOpen(true);
+    }
+    setSelectedOption("role");
+    setIsTeamsDropdownOpen(false);
+  };
   const handleRoleChange = (role) => {
     setSelectedRoles((prev) =>
       prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role]
@@ -46,11 +57,7 @@ const FilterModal = ({ roles, teams, onApply, onClose }) => {
               <input
                 type="checkbox"
                 checked={selectedOption === "role"}
-                onChange={() => {
-                  setSelectedOption("role");
-                  setIsRolesDropdownOpen(true);
-                  setIsTeamsDropdownOpen(false);
-                }}
+                onChange={(e) => handleSelectRoles(e.target.checked)}
                 className="mr-2 accent-[#6941C6] w-4 h-4"
               />
               Role
@@ -84,6 +91,7 @@ const FilterModal = ({ roles, teams, onApply, onClose }) => {
                 checked={selectedOption === "team"}
                 onChange={() => {
                   setSelectedOption("team");
+                  setSelectedTeams(teams);
                   setIsTeamsDropdownOpen(true);
                   setIsRolesDropdownOpen(false);
                 }}
