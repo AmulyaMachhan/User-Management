@@ -8,9 +8,6 @@ import Teams from "./Columns/Teams";
 
 const PeopleDirectory = () => {
   const users = useSelector((state) => state.user.users);
-  const roles = useSelector((state) => state.role.roles);
-  const teams = useSelector((state) => state.team.teams);
-
   const data = useMemo(() => users, [users]);
   const columnHelper = createColumnHelper();
 
@@ -58,9 +55,7 @@ const PeopleDirectory = () => {
     [columnHelper]
   );
 
-  return (
-    <UserTable data={data} columns={columns} roles={roles} teams={teams} />
-  );
+  return <UserTable data={data} columns={columns} />;
 };
 
 export default PeopleDirectory;
