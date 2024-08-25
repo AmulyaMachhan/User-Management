@@ -1,7 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const FilterModal = ({ roles, teams, onApply, onClose }) => {
+const FilterModal = ({ onApply, onClose }) => {
+  const roles = useSelector((state) => state.role.roles);
+  const teams = useSelector((state) => state.team.teams);
+
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [selectedTeams, setSelectedTeams] = useState([]);
