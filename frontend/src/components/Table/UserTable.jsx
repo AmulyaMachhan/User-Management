@@ -1,4 +1,8 @@
 import PropTypes from "prop-types";
+import { useEffect, useState, useRef } from "react";
+
+import { useSearchParams } from "react-router-dom";
+
 import {
   useReactTable,
   getCoreRowModel,
@@ -10,14 +14,10 @@ import SidePane from "./SidePane";
 import EditProfileModal from "../Modals/EditProfileModal";
 import DeleteModal from "../Modals/DeleteModal";
 import FilterModal from "../Modals/FilterModal";
-import { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { deleteUser } from "../../redux/userSlice";
-import { useSearchParams } from "react-router-dom";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 
-const UserTable = ({ data, columns, roles, teams }) => {
+const UserTable = ({ data, columns }) => {
   const [filtering, setFiltering] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [modals, setModals] = useState({
@@ -29,7 +29,6 @@ const UserTable = ({ data, columns, roles, teams }) => {
   const [filteredData, setFilteredData] = useState(data);
 
   const sidePaneRef = useRef(null);
-  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -74,14 +73,6 @@ const UserTable = ({ data, columns, roles, teams }) => {
 
   const handleRowClick = (user) => {
     setSelectedUser(user);
-    setIsSidePaneOpen(true);
-  };
-
-  const handleConfirmDelete = () => {
-    dispatch(deleteUser(selectedUser.id));
-    setFilteredData(filteredData.filter((user) => user.id !== selectedUser.id));
-    setModals((prev) => ({ ...prev, isDeleteModalOpen: false }));
-    setSelectedUser(null);
     setIsSidePaneOpen(true);
   };
 
@@ -169,16 +160,15 @@ const UserTable = ({ data, columns, roles, teams }) => {
       {modals.isDeleteModalOpen && (
         <DeleteModal
           user={selectedUser}
-          onClose={() =>
-            setModals((prev) => ({ ...prev, isDeleteModalOpen: false }))
-          }
-          onDelete={handleConfirmDelete}
+          setFilteredData={setFilteredData}
+          setModals={setModals}
+          filteredData={filteredData}
+          setSelectedUser={setSelectedUser}
+          setIsSidePaneOpen={setIsSidePaneOpen}
         />
       )}
       {modals.isFilterModalOpen && (
         <FilterModal
-          roles={roles}
-          teams={teams}
           onApply={handleFilterApply}
           onClose={() =>
             setModals((prev) => ({ ...prev, isFilterModalOpen: false }))
@@ -192,8 +182,6 @@ const UserTable = ({ data, columns, roles, teams }) => {
 UserTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  roles: PropTypes.array.isRequired,
-  teams: PropTypes.object.isRequired,
 };
 
 export default UserTable;
