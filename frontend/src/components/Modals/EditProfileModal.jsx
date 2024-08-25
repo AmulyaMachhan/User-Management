@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addUser, editUser } from "../../redux/userSlice";
 import MultiSelectDropdown from "../Table/MultiSelectDropdown";
 import { useState, useEffect } from "react";
+import { CloseIcon } from "../Icons";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -53,7 +54,7 @@ const EditProfileModal = ({ user, onClose }) => {
       setSelectedTeams(user.teams || []);
       setProfileImage(user.profileImage || profileImage);
     }
-  }, [user, reset]);
+  }, [user, reset, profileImage]);
 
   useEffect(() => {
     setValue("teams", selectedTeams);
@@ -105,19 +106,7 @@ const EditProfileModal = ({ user, onClose }) => {
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
           >
-            <svg
-              width="24"
-              height="24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6 18L18 6M6 6l12 12"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <CloseIcon color={"#475467"} />
           </button>
         </header>
 
