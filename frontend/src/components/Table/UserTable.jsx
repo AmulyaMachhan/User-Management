@@ -1,5 +1,3 @@
-import { IoSearch } from "react-icons/io5";
-import { FaPlus } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import {
   useReactTable,
@@ -17,7 +15,13 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../redux/userSlice";
 import { useSearchParams } from "react-router-dom";
-import FilterIcon from "../Icons/FilterIcon";
+import {
+  SearchIcon,
+  FilterIcon,
+  DeleteIcon,
+  EditIcon,
+  AddIcon,
+} from "../Icons/index";
 
 const UserTable = ({ data, columns, roles, teams }) => {
   const [filtering, setFiltering] = useState("");
@@ -35,7 +39,6 @@ const UserTable = ({ data, columns, roles, teams }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    // Parse URL parameters to set initial state
     const query = searchParams.get("query") || "";
     setFiltering(query);
     applySearchFilter(query);
@@ -43,14 +46,14 @@ const UserTable = ({ data, columns, roles, teams }) => {
     const filterRole = searchParams.get("role") || "";
     const filterTeam = searchParams.get("team") || "";
     handleFilterApply(filterRole.split(","), filterTeam.split(","));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, data]);
 
   useEffect(() => {
-    // Update URL parameters based on the current state
     const params = new URLSearchParams();
     if (filtering) params.set("query", filtering);
-    // Add other params like filters if applicable
     setSearchParams(params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtering, filteredData]);
 
   useEffect(() => {
@@ -162,7 +165,7 @@ const UserTable = ({ data, columns, roles, teams }) => {
               }}
             />
             <button className="p-2 border-none bg-transparent">
-              <IoSearch size={20} color="#6941C6" />
+              <SearchIcon />
             </button>
           </div>
           <button
@@ -177,7 +180,7 @@ const UserTable = ({ data, columns, roles, teams }) => {
             onClick={handleAddMember}
             className="flex items-center font-[500] tracking-wide gap-2 px-4 py-2 bg-[#6941C6] text-white rounded-lg"
           >
-            <FaPlus size={20} />
+            <AddIcon />
             <span>ADD MEMBER</span>
           </button>
         </div>
@@ -227,21 +230,7 @@ const UserTable = ({ data, columns, roles, teams }) => {
                       }}
                       className="mr-2 text-red-600"
                     >
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 18 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12.3333 4.99996V4.33329C12.3333 3.39987 12.3333 2.93316 12.1517 2.57664C11.9919 2.26304 11.7369 2.00807 11.4233 1.84828C11.0668 1.66663 10.6001 1.66663 9.66667 1.66663H8.33333C7.39991 1.66663 6.9332 1.66663 6.57668 1.84828C6.26308 2.00807 6.00811 2.26304 5.84832 2.57664C5.66667 2.93316 5.66667 3.39987 5.66667 4.33329V4.99996M7.33333 9.58329V13.75M10.6667 9.58329V13.75M1.5 4.99996H16.5M14.8333 4.99996V14.3333C14.8333 15.1338 14.5766 15.8837 14.0853 16.4357C13.6114 16.9647 12.7552 17.1666 11.8333 17.1666H6.16667C5.24478 17.1666 4.38861 16.9647 3.91472 16.4357C3.4234 15.8837 3.16667 15.1338 3.16667 14.3333V4.99996H14.8333Z"
-                          stroke="black"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      <DeleteIcon />
                     </button>
                     <button
                       onClick={(e) => {
@@ -250,21 +239,7 @@ const UserTable = ({ data, columns, roles, teams }) => {
                       }}
                       className="text-[#6941C6]"
                     >
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M15.7083 2.29167C16.1042 1.89583 16.5958 1.83333 16.9167 2.15417C17.25 2.475 17.25 3.01667 16.9167 3.375L7.08333 13.2083L3.33333 13.8333L4.00000 10.0833L13.8333 1.25000C14.2083 0.916667 14.75 0.916667 15.0833 1.25000L15.7083 2.29167Z"
-                          stroke="black"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      <EditIcon />
                     </button>
                   </td>
                 </tr>
