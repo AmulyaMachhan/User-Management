@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import {
   useReactTable,
   getCoreRowModel,
-  flexRender,
   getPaginationRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
@@ -15,13 +14,8 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../../redux/userSlice";
 import { useSearchParams } from "react-router-dom";
-import {
-  SearchIcon,
-  FilterIcon,
-  DeleteIcon,
-  EditIcon,
-  AddIcon,
-} from "../Icons/index";
+import TableHeader from "./TableHeader";
+import TableBody from "./TableBody";
 
 const UserTable = ({ data, columns, roles, teams }) => {
   const [filtering, setFiltering] = useState("");
@@ -83,18 +77,6 @@ const UserTable = ({ data, columns, roles, teams }) => {
     setIsSidePaneOpen(true);
   };
 
-  const handleEdit = (user) => {
-    setSelectedUser(user);
-    setModals((prev) => ({ ...prev, isModalOpen: true }));
-    setIsSidePaneOpen(false);
-  };
-
-  const handleDelete = (user) => {
-    setSelectedUser(user);
-    setModals((prev) => ({ ...prev, isDeleteModalOpen: true }));
-    setIsSidePaneOpen(false);
-  };
-
   const handleConfirmDelete = () => {
     dispatch(deleteUser(selectedUser.id));
     setFilteredData(filteredData.filter((user) => user.id !== selectedUser.id));
@@ -107,12 +89,6 @@ const UserTable = ({ data, columns, roles, teams }) => {
     setModals((prev) => ({ ...prev, isModalOpen: false }));
     setSelectedUser(null);
     setIsSidePaneOpen(true);
-  };
-
-  const handleAddMember = () => {
-    setSelectedUser(null);
-    setModals((prev) => ({ ...prev, isModalOpen: true }));
-    setIsSidePaneOpen(false);
   };
 
   const handleFilterApply = (filterBy, filterType) => {
@@ -145,107 +121,23 @@ const UserTable = ({ data, columns, roles, teams }) => {
 
   return (
     <div className="relative">
-      <header className="flex items-center justify-between p-4 border-b border-[#E4E7EC] bg-white">
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-semibold">Team Members</h1>
-          <div className="flex items-center px-3 py-1 gap-2 font-[600] text-[#6941C6] bg-[#F9F5FF] border border-[#E4E7EC] rounded-3xl">
-            <span>{filteredData.length} users</span>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center border rounded-lg overflow-hidden">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="px-4 py-2 border-none outline-none"
-              value={filtering}
-              onChange={(e) => {
-                setFiltering(e.target.value);
-                applySearchFilter(e.target.value);
-              }}
-            />
-            <button className="p-2 border-none bg-transparent">
-              <SearchIcon />
-            </button>
-          </div>
-          <button
-            onClick={() =>
-              setModals((prev) => ({ ...prev, isFilterModalOpen: true }))
-            }
-            className="p-2 rounded-full hover:bg-gray-200"
-          >
-            <FilterIcon />
-          </button>
-          <button
-            onClick={handleAddMember}
-            className="flex items-center font-[500] tracking-wide gap-2 px-4 py-2 bg-[#6941C6] text-white rounded-lg"
-          >
-            <AddIcon />
-            <span>ADD MEMBER</span>
-          </button>
-        </div>
-      </header>
+      <TableHeader
+        filtering={filtering}
+        setFiltering={setFiltering}
+        filteredDataLength={filteredData.length}
+        setModals={setModals}
+      />
       {rows.length === 0 ? (
         <div className="p-4 text-center text-gray-600">No users found</div>
       ) : (
         <div>
-          <table className="w-full">
-            <thead className="text-[#475467]">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th
-                      key={header.id}
-                      className="py-3 px-3 text-left text-sm border-b"
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr
-                  key={row.id}
-                  onClick={() => handleRowClick(row.original)}
-                  className="table-row cursor-pointer hover:bg-gray-100"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="py-3 px-4 border-b">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                  <td className="py-2 px-2 border-b">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(row.original);
-                      }}
-                      className="mr-2 text-red-600"
-                    >
-                      <DeleteIcon />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleEdit(row.original);
-                      }}
-                      className="text-[#6941C6]"
-                    >
-                      <EditIcon />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <TableBody
+            table={table}
+            rows={rows}
+            handleRowClick={handleRowClick}
+            setModals={setModals}
+            setSelectedUser={setSelectedUser}
+          />
           <Pagination table={table} />
         </div>
       )}
