@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
-
 import { useSearchParams } from "react-router-dom";
-
 import {
   useReactTable,
   getCoreRowModel,
@@ -11,13 +9,11 @@ import {
 } from "@tanstack/react-table";
 import Pagination from "./Pagination";
 import SidePane from "./SidePane";
-import EditProfileModal from "../Modals/EditProfileModal";
-import DeleteModal from "../Modals/DeleteModal";
-import FilterModal from "../Modals/FilterModal";
+import { EditProfileModal, DeleteModal, FilterModal } from "../Modals";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 
-const UserTable = ({ data, columns }) => {
+const UserTable = ({ data, columns, overlapFromColumn }) => {
   const [filtering, setFiltering] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [modals, setModals] = useState({
@@ -30,6 +26,8 @@ const UserTable = ({ data, columns }) => {
 
   const sidePaneRef = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const overlapIndex = columns.findIndex((col) => col.id === overlapFromColumn);
 
   useEffect(() => {
     const query = searchParams.get("query") || "";
@@ -128,6 +126,7 @@ const UserTable = ({ data, columns }) => {
             handleRowClick={handleRowClick}
             setModals={setModals}
             setSelectedUser={setSelectedUser}
+            overlapIndex={overlapIndex}
           />
           <Pagination table={table} />
         </div>
@@ -182,6 +181,7 @@ const UserTable = ({ data, columns }) => {
 UserTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
+  overlapFromColumn: PropTypes.string.isRequired,
 };
 
 export default UserTable;
