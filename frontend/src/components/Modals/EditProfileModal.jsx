@@ -6,7 +6,8 @@ import { useDispatch } from "react-redux";
 import { addUser, editUser } from "../../redux/userSlice";
 import MultiSelectDropdown from "../Table/MultiSelectDropdown";
 import { useState, useEffect } from "react";
-import { CloseIcon } from "../Icons";
+import { CloseIcon, DeleteIcon } from "../Icons";
+import RefreshIcon from "../Icons/RefreshIcon";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -39,7 +40,7 @@ const EditProfileModal = ({ user, onClose }) => {
   const [selectedTeams, setSelectedTeams] = useState([]);
   const [profileImage, setProfileImage] = useState(
     user?.profileImage ||
-      "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+      "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-man-avatar-wearing-gray-suit-png-image_6102786.png"
   );
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const EditProfileModal = ({ user, onClose }) => {
 
   const handleDeletePhoto = () => {
     setProfileImage(
-      "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+      "https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-man-avatar-wearing-gray-suit-png-image_6102786.png"
     );
   };
 
@@ -96,27 +97,27 @@ const EditProfileModal = ({ user, onClose }) => {
   const teamsOptions = ["Development", "Design", "Marketing", "Support"];
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white p-4 rounded-lg shadow-lg w-2/3 max-w-lg">
-        <header className="flex justify-between items-center pb-2 mb-4">
-          <h2 className="text-lg font-semibold">
-            {isAddMode ? "Add New Member" : "Edit Profile"}
+    <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+      <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-lg">
+        <header className="flex justify-between items-center">
+          <h2 className="text-lg font-bold">
+            {isAddMode ? "Add Member" : "Edit Profile"}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-400 hover:text-gray-600"
           >
             <CloseIcon color={"#475467"} />
           </button>
         </header>
 
-        <div className="mb-4 flex flex-col items-center">
+        <div className="mb-3 flex flex-col items-center">
           <img
             src={profileImage}
             alt={user?.name || "User"}
-            className="w-[80px] h-[80px] rounded-full mb-4"
+            className="w-[80px] h-[80px] bg-cover rounded-full mb-4 border-[0.75px] border-[#334155]"
           />
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <input
               type="file"
               accept="image/*"
@@ -126,63 +127,74 @@ const EditProfileModal = ({ user, onClose }) => {
             />
             <label
               htmlFor="profileImageUpload"
-              className="flex items-center gap-2 bg-[#F8FAFC] text-[#06103C] font-[700] tracking-wide px-3 py-1.5 rounded-lg cursor-pointer"
+              className="flex gap-2 items-center tracking-wider bg-[#F8FAFC] text-[0.7rem] text-[#06103C] font-[700] border border-[#CBD5E1] px-2 py-1.5 rounded-lg cursor-pointer"
             >
+              <RefreshIcon />
               CHANGE PHOTO
             </label>
             <button
               onClick={handleDeletePhoto}
-              className="flex items-center gap-2 bg-[#F8FAFC] text-[#06103C] font-[700] tracking-wide px-3 py-1.5 rounded-lg"
+              className="flex gap-2 items-center tracking-wider bg-[#F8FAFC] text-[0.7rem] text-[#06103C] font-[700] border border-[#CBD5E1] px-2 py-1.5 rounded-lg cursor-pointer"
             >
+              <DeleteIcon />
               DELETE PHOTO
             </button>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-          <div className="grid grid-cols-2 gap-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+          <div className="grid grid-cols-2 gap-5">
             <div>
-              <label className="block mb-1" htmlFor="name">
+              <label
+                className="block text-xs font-semibold mb-2"
+                htmlFor="name"
+              >
                 Name
               </label>
               <input
                 id="name"
                 type="text"
                 {...register("name")}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2.5 border-b-1 border-b-[#475569] text-xs font-[#334155]"
                 placeholder="Name"
               />
               {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name.message}</p>
+                <p className="text-red-500 text-xs">{errors.name.message}</p>
               )}
             </div>
 
             <div>
-              <label className="block mb-1" htmlFor="email">
+              <label
+                className="block text-xs font-semibold mb-2"
+                htmlFor="email"
+              >
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 {...register("email")}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2.5 border-b-1 border-b-[#475569] text-xs font-[#334155]"
                 placeholder="Email"
               />
               {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+                <p className="text-red-500 text-xs">{errors.email.message}</p>
               )}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-5">
             <div>
-              <label className="block mb-1" htmlFor="role">
+              <label
+                className="block text-xs font-semibold mb-2"
+                htmlFor="role"
+              >
                 Role
               </label>
               <select
                 id="role"
                 {...register("role")}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2.5 border-b-1 border-b-[#475569] text-xs font-[#334155]"
               >
                 <option value="" disabled>
                   Select Role
@@ -194,18 +206,21 @@ const EditProfileModal = ({ user, onClose }) => {
                 ))}
               </select>
               {errors.role && (
-                <p className="text-red-500 text-sm">{errors.role.message}</p>
+                <p className="text-red-500 text-xs">{errors.role.message}</p>
               )}
             </div>
 
             <div>
-              <label className="block mb-1" htmlFor="status">
+              <label
+                className="block text-xs font-semibold mb-2"
+                htmlFor="status"
+              >
                 Status
               </label>
               <select
                 id="status"
                 {...register("status")}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2.5 border-b-1 border-b-[#475569] text-xs font-[#334155]"
               >
                 <option value="" disabled>
                   Select Status
@@ -217,13 +232,16 @@ const EditProfileModal = ({ user, onClose }) => {
                 ))}
               </select>
               {errors.status && (
-                <p className="text-red-500 text-sm">{errors.status.message}</p>
+                <p className="text-red-500 text-xs">{errors.status.message}</p>
               )}
             </div>
           </div>
 
-          <div>
-            <label className="block mb-1" htmlFor="teams">
+          <div className="">
+            <label
+              className="block text-xs font-semibold my-1.5"
+              htmlFor="teams"
+            >
               Teams
             </label>
             <MultiSelectDropdown
@@ -232,23 +250,26 @@ const EditProfileModal = ({ user, onClose }) => {
               setSelectedOptions={setSelectedTeams}
             />
             {errors.teams && (
-              <p className="text-red-500 text-sm">{errors.teams.message}</p>
+              <p className="text-red-500 text-xs">{errors.teams.message}</p>
             )}
           </div>
 
-          <div className="flex justify-end space-x-3">
+          <div
+            className="mt-[2rem] flex justify-end gap-2"
+            style={{ marginTop: "2rem" }}
+          >
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              className="bg-[#F8FAFC] text-[#06103C] font-bold text-xs tracking-wider px-3 py-1 rounded-sm border border-[#CBD5E1]"
             >
-              Cancel
+              CANCEL
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+              className="bg-[#F8FAFC] text-[#06103C] font-bold text-xs tracking-wider px-3 py-1 rounded-sm border border-[#CBD5E1]"
             >
-              {isAddMode ? "Add Member" : "Save Changes"}
+              {isAddMode ? "ADD" : "SAVE"}
             </button>
           </div>
         </form>
