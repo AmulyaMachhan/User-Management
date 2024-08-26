@@ -9,14 +9,14 @@ const SidePane = forwardRef(({ user, onClose }, ref) => {
   return (
     <div
       ref={ref}
-      className="absolute top-0 right-0 w-[600px] h-full bg-white shadow-lg border border-gray-200 rounded-xl z-50"
+      className="absolute top-0 right-0 w-[800px] h-full bg-white shadow-lg border border-gray-200 rounded-xl z-10"
     >
       <div className="bg-[#2A5B7E] text-white flex items-center justify-between p-3">
         <div className="flex items-start gap-3">
           <img
             src={user.profileImage}
             alt={user.name}
-            className="w-20 h-20 rounded-full" // Adjusted width and height to 80px (20rem in Tailwind)
+            className="w-20 h-20 rounded-full"
           />
           <div className="flex-grow">
             <div className="text-lg font-bold">{user.name}</div>
