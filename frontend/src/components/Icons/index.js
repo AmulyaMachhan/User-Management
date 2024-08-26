@@ -7,6 +7,7 @@ export { default as CloseIcon } from "./CloseIcon";
 export { default as BellIcon } from "./BellIcon";
 export { default as GridIcon } from "./GridIcon";
 export { default as QuestionIcon } from "./QuestionIcon";
+export { default as DropdownIcon } from "./DropdownIcon";
 export { default as RightArrowIcon } from "./RightArrowIcon";
 export { default as LeftArrowIcon } from "./LeftArrowIcon";
 export { default as DownArrowIcon } from "./DownArrowIcon";
