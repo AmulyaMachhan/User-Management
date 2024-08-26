@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 
-function CloseIcon({ color }) {
+function CloseIcon({ color, height, width }) {
   return (
     <svg
-      width="14"
-      height="14"
+      width={width}
+      height={height}
       viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -21,9 +21,13 @@ function CloseIcon({ color }) {
 
 CloseIcon.propTypes = {
   color: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
 };
 
 CloseIcon.defaultProps = {
   color: "white",
+  height: "14",
+  width: "14",
 };
 export default CloseIcon;
