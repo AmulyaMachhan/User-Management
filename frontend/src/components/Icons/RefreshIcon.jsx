@@ -2,8 +2,8 @@ function RefreshIcon() {
   return (
     <div>
       <svg
-        width="17"
-        height="18"
+        width="14"
+        height="14"
         viewBox="0 0 17 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
