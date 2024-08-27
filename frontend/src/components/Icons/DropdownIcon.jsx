@@ -1,9 +1,11 @@
-function DropdownIcon() {
+import PropTypes from "prop-types";
+
+function DropdownIcon({ height, width }) {
   return (
     <div>
       <svg
-        width="16"
-        height="9"
+        width={width}
+        height={height}
         viewBox="0 0 16 9"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -17,4 +19,13 @@ function DropdownIcon() {
   );
 }
 
+DropdownIcon.propTypes = {
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+};
+
+DropdownIcon.defaultProps = {
+  height: "9",
+  width: "16",
+};
 export default DropdownIcon;
