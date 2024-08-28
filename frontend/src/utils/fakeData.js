@@ -1,8 +1,16 @@
 import { faker } from "@faker-js/faker";
 
-// Function to generate a single user
 const generateUser = () => {
-  const teams = ["Development", "Design", "Marketing", "Support"];
+  const teams = ["Design", "Product", "Marketing", "Support"];
+
+  const selectedTeams = faker.helpers.arrayElements(
+    teams,
+    faker.number.int({ min: 1, max: teams.length })
+  );
+
+  const sortedTeams = selectedTeams.sort((a, b) => {
+    return teams.indexOf(a) - teams.indexOf(b);
+  });
 
   return {
     id: faker.string.uuid(),
@@ -22,10 +30,7 @@ const generateUser = () => {
       "Frontend Engineer",
       "Backend Engineer",
     ]),
-    teams: faker.helpers.arrayElements(
-      teams,
-      faker.number.int({ min: 1, max: teams.length })
-    ),
+    teams: sortedTeams,
   };
 };
 
