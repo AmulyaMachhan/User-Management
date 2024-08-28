@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Teams = ({ teams }) => {
   const colorSchemes = [
-    { text: "#6941C6", bg: "#F9F5FF", border: "#E4E7EC" },
+    { text: "#6941C6", bg: "#F9F5FF", border: "#E9D7FE" },
     { text: "#175CD3", bg: "#EFF8FF", border: "#B2DDFF" },
     { text: "#3538CD", bg: "#EEF4FF", border: "#C7D7FE" },
   ];
@@ -18,7 +18,7 @@ const Teams = ({ teams }) => {
         return (
           <div
             key={index}
-            className="text-xs px-2 py-1 rounded-full"
+            className={`text-[0.7rem] px-1.5 py-0.5 rounded-full border border-[${border}]`}
             style={{ color: text, backgroundColor: bg, borderColor: border }}
           >
             {team}
@@ -26,7 +26,7 @@ const Teams = ({ teams }) => {
         );
       })}
       {extraCount > 0 && (
-        <div className="text-xs px-2 py-1 rounded-full text-gray-600 border border-gray-300">
+        <div className="text-[0.7rem] px-1.5 py-0.5 font-[500] rounded-xl text-[#344054 ] border border-gray-300">
           +{extraCount}
         </div>
       )}
