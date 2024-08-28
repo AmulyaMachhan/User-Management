@@ -62,7 +62,7 @@ const TableBody = ({
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
-            <td className="py-2 px-2 border-b">
+            <td className="py-2 px-2 border-t border-b">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
