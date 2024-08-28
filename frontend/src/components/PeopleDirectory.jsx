@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { createColumnHelper } from "@tanstack/react-table";
 import UserTable from "./Table/UserTable";
@@ -9,12 +9,28 @@ import { DownArrowIcon, QuestionIcon } from "./Icons";
 
 const PeopleDirectory = () => {
   const users = useSelector((state) => state.user.users);
+  const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
 
   const data = useMemo(() => users, [users]);
   const columnHelper = createColumnHelper();
 
+  // Define columns including the checkbox column
   const columns = useMemo(
     () => [
+      ...(isSidePaneOpen
+        ? [
+            columnHelper.accessor("checkbox", {
+              id: "checkbox",
+              header: () => <input type="checkbox" className="" />,
+              cell: ({ row }) => (
+                <input type="checkbox" checked={row.getIsSelected()} />
+              ),
+              className: `transition-all duration-300 ease-in-out ${
+                isSidePaneOpen ? "hidden" : "block"
+              }`,
+            }),
+          ]
+        : []),
       columnHelper.accessor("name", {
         id: "name",
         header: () => (
@@ -40,8 +56,10 @@ const PeopleDirectory = () => {
           </div>
         ),
         cell: ({ getValue }) => <Status isActive={getValue()} />,
+        className: `transition-all duration-300 ease-in-out ${
+          isSidePaneOpen ? "w-1/4" : "w-full"
+        }`, // Smooth transition class
       }),
-
       columnHelper.accessor("role", {
         id: "role",
         header: () => (
@@ -53,13 +71,19 @@ const PeopleDirectory = () => {
         cell: ({ getValue }) => (
           <div className="text-xs text-gray-600">{getValue()}</div>
         ),
+        className: `transition-all duration-300 ease-in-out ${
+          isSidePaneOpen ? "hidden" : "block"
+        }`, // Smooth transition class for hiding the column
       }),
       columnHelper.accessor("email", {
         id: "email",
         header: "Email Address",
         cell: ({ getValue }) => (
-          <div className="text-xs text-gray-600">{getValue()}</div>
+          <div className="text-[0.7rem] text-gray-600">{getValue()}</div>
         ),
+        className: `transition-all duration-300 ease-in-out ${
+          isSidePaneOpen ? "hidden" : "block"
+        }`, // Smooth transition class for hiding the column
       }),
       columnHelper.accessor("teams", {
         id: "teams",
@@ -67,12 +91,22 @@ const PeopleDirectory = () => {
         cell: ({ getValue }) => {
           return <Teams teams={getValue()} />;
         },
+        className: `transition-all duration-300 ease-in-out ${
+          isSidePaneOpen ? "hidden" : "block"
+        }`,
       }),
     ],
-    [columnHelper]
+    [columnHelper, isSidePaneOpen]
   );
 
-  return <UserTable data={data} columns={columns} overlapFromColumn="status" />;
+  return (
+    <UserTable
+      data={data}
+      columns={columns}
+      overlapFromColumn="status"
+      onSidePaneToggle={setIsSidePaneOpen}
+    />
+  );
 };
 
 export default PeopleDirectory;
