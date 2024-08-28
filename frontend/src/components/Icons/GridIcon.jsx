@@ -1,4 +1,6 @@
-function GridIcon() {
+import PropTypes from "prop-types";
+
+function GridIcon({ color }) {
   return (
     <svg
       width="24"
@@ -7,7 +9,7 @@ function GridIcon() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="24" height="24" rx="4" fill="#6941C6" />
+      <rect width="24" height="24" rx="4" fill={color} />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -34,4 +36,11 @@ function GridIcon() {
   );
 }
 
+GridIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+};
+
+GridIcon.defaultProps = {
+  color: "black",
+};
 export default GridIcon;
