@@ -13,7 +13,7 @@ import { EditProfileModal, DeleteModal, FilterModal } from "../Modals";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 
-const UserTable = ({ data, columns, overlapFromColumn }) => {
+const UserTable = ({ data, columns, overlapFromColumn, onSidePaneToggle }) => {
   const [filtering, setFiltering] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [modals, setModals] = useState({
@@ -51,12 +51,13 @@ const UserTable = ({ data, columns, overlapFromColumn }) => {
     const handleClickOutside = (event) => {
       if (sidePaneRef.current && !sidePaneRef.current.contains(event.target)) {
         setIsSidePaneOpen(false);
+        onSidePaneToggle(false); // Notify parent component
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [onSidePaneToggle]);
 
   const table = useReactTable({
     data: filteredData,
@@ -72,6 +73,7 @@ const UserTable = ({ data, columns, overlapFromColumn }) => {
   const handleRowClick = (user) => {
     setSelectedUser(user);
     setIsSidePaneOpen(true);
+    onSidePaneToggle(true); // Notify parent component
   };
 
   const handleCloseModal = () => {
@@ -159,19 +161,27 @@ const UserTable = ({ data, columns, overlapFromColumn }) => {
       {modals.isDeleteModalOpen && (
         <DeleteModal
           user={selectedUser}
-          setFilteredData={setFilteredData}
-          setModals={setModals}
-          filteredData={filteredData}
-          setSelectedUser={setSelectedUser}
-          setIsSidePaneOpen={setIsSidePaneOpen}
+          onClose={() =>
+            setModals((prev) => ({ ...prev, isDeleteModalOpen: false }))
+          }
+          onDelete={() => {
+            setFilteredData(
+              filteredData.filter((u) => u.id !== selectedUser.id)
+            );
+            setSelectedUser(null);
+            setModals((prev) => ({ ...prev, isDeleteModalOpen: false }));
+          }}
         />
       )}
       {modals.isFilterModalOpen && (
         <FilterModal
-          onApply={handleFilterApply}
           onClose={() =>
             setModals((prev) => ({ ...prev, isFilterModalOpen: false }))
           }
+          onApply={(filterRole, filterTeam) => {
+            handleFilterApply(filterRole, filterTeam);
+            setModals((prev) => ({ ...prev, isFilterModalOpen: false }));
+          }}
         />
       )}
     </div>
@@ -182,6 +192,7 @@ UserTable.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   overlapFromColumn: PropTypes.string.isRequired,
+  onSidePaneToggle: PropTypes.func.isRequired,
 };
 
 export default UserTable;
